@@ -8,10 +8,10 @@ func main() {
 
 	var b int = 6
 	fmt.Println(b)
-	
+
 	b = 2
 	fmt.Println(b)
-	
+
 	var e int
 	fmt.Println(e)
 
