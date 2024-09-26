@@ -10,11 +10,13 @@ func main() {
 	log.SetFlags(0)
 	log.SetPrefix("greetings: ")
 	// Get a greeting message and print it.
-	message, error := greetings.Hello("Peter")
+	messages, error := greetings.Hello_group([]string{"Peter", "Ned", "Cat"})
 
 	if error != nil {
 		log.Fatal(error)
 	}
 
-	fmt.Println(message)
+	for _, message := range messages {
+		fmt.Println(message)
+	}
 }
