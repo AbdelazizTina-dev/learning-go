@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"tutorial/first"
 	"log"
+	"tutorial/first"
 )
 
 func main() {
 	log.SetFlags(0)
 	log.SetPrefix("greetings: ")
 	// Get a greeting message and print it.
-	message, error := greetings.Hello("")
+	message, error := greetings.Hello("Peter")
 
 	if error != nil {
 		log.Fatal(error)
