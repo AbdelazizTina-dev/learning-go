@@ -3,8 +3,9 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/go-sql-driver/mysql"
 	"log"
+
+	"github.com/go-sql-driver/mysql"
 )
 
 var db *sql.DB
@@ -51,6 +52,13 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Printf("Album found: %v\n", alb)
+
+	alb = Album{Title: "Fruit de Demon", Artist: "Soolking", Price: 28.00}
+	albId, err := addAlbum(alb)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Album added, id: %v\n", albId)
 }
 
 // albumsByArtist queries for albums that have the specified artist name.
@@ -90,4 +98,16 @@ func albumByID(id int64) (Album, error) {
 		return alb, fmt.Errorf("albumsById %d: %v", id, err)
 	}
 	return alb, nil
+}
+
+func addAlbum(alb Album) (int64, error) {
+	result, err := db.Exec("INSERT INTO album (title, artist, price) VALUES (?, ?, ?)", alb.Title, alb.Artist, alb.Price)
+	if err != nil {
+		return 0, fmt.Errorf("addAlbum: %v", err)
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, fmt.Errorf("addAlbum: %v", err)
+	}
+	return id, nil
 }
